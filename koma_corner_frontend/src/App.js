@@ -9,6 +9,8 @@ import Home from './pages/Home';
 import Search from './pages/Search';
 import Favorites from './pages/Favorites';
 import Progress from './pages/Progress';
+import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedDemo from './pages/ProtectedDemo';
 
 // Set up a React Query client
 const queryClient = new QueryClient();
@@ -27,6 +29,14 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/progress" element={<Progress />} />
+          <Route
+            path="/protected"
+            element={
+              <ProtectedRoute>
+                <ProtectedDemo />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
