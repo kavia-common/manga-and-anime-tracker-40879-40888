@@ -1,82 +1,59 @@
-# Lightweight React Template for KAVIA
+# Koma Corner Frontend
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A minimalist React app implementing:
+- Environment-based configuration
+- Supabase Auth (Google OAuth)
+- AniList GraphQL integration
+- React Router routes and basic pages
+- React Query for data fetching
+- Ocean Professional theme
 
-## Features
+## Quick Start
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+1. Install dependencies:
+   npm install
 
-## Getting Started
+2. Configure environment:
+   - Copy `.env.example` to `.env` and fill in:
+     - REACT_APP_SUPABASE_URL
+     - REACT_APP_SUPABASE_ANON_KEY
+     - (Optional) REACT_APP_ANILIST_GRAPHQL_URL (defaults to https://graphql.anilist.co)
+   - Existing keys are preserved and can remain empty for local dev.
 
-In the project directory, you can run:
+3. Run the app:
+   npm start
 
-### `npm start`
+Open http://localhost:3000
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Auth Notes
 
-### `npm test`
+- The Login with Google button uses Supabase OAuth. Actual sign-in requires valid REACT_APP_SUPABASE_URL and REACT_APP_SUPABASE_ANON_KEY.
+- emailRedirectTo/redirectTo uses REACT_APP_FRONTEND_URL if available (fallbacks to window.location.origin).
 
-Launches the test runner in interactive watch mode.
+## Theme
 
-### `npm run build`
+Colors are defined in `src/theme.css`:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- primary #374151
+- secondary #9CA3AF
+- success #10B981
+- error #EF4444
+- background #FFFFFF
+- surface #F9FAFB
+- text #111827
 
-## Customization
+## Routing
 
-### Colors
+- `/` Home: Trending grid (AniList)
+- `/search`: Search by title with filters (type, sort)
+- `/favorites`: Placeholder
+- `/progress`: Placeholder
 
-The main brand colors are defined as CSS variables in `src/App.css`:
+## Feature Flags
 
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
-```
+- Reads REACT_APP_FEATURE_FLAGS when present (no flags used yet in this scaffold).
 
-### Components
+## Troubleshooting
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
-
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
-
-## Learn More
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- If OAuth redirects to a different domain, set REACT_APP_FRONTEND_URL to your site origin and configure Supabase Auth redirect URLs accordingly.
+- Ensure network calls to `https://graphql.anilist.co` are allowed in your environment.
